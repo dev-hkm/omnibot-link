@@ -12,6 +12,10 @@ if [ -z "${GRADLE_CMD}" ]; then
   exit 2
 fi
 
+if [ -f "./gradlew" ]; then
+  chmod +x ./gradlew
+fi
+
 BUILD_TYPE="${BUILD_TYPE:-debug}"
 TASK="${GRADLE_TASK_INPUT:-}"
 MODULE="${MODULE_INPUT:-}"

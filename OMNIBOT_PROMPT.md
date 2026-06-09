@@ -1,51 +1,24 @@
 # Omnibot Android Project Instruction
 
-Bạn đang làm việc trong một repo Android native public trên GitHub. Mục tiêu là tạo, sửa và build APK thành công bằng GitHub Actions.
+You are working in a public Android native GitHub repository. Your goal is to create, fix, and build APKs successfully with GitHub Actions.
 
-## Quy tắc bắt buộc
+Rules:
 
-1. Không commit secret, token, file `.jks`, `.keystore`, `keystore.properties`, `local.properties` hoặc mật khẩu vào repo.
-2. Mặc định dùng Kotlin cho code Android.
-3. Nếu tạo UI mới, có thể dùng Android View programmatic hoặc Jetpack Compose, nhưng phải giữ project build được.
-4. Không tự ý đổi Android Gradle Plugin, Kotlin plugin, Gradle version hoặc workflow nếu build log không yêu cầu rõ.
-5. Không refactor lớn khi đang sửa lỗi build. Sửa ít nhất có thể để APK build pass.
-6. Không thêm đường dẫn SDK/JDK cố định của máy cá nhân vào repo.
-7. Nếu build lỗi, đọc artifact `android-build-log`, tìm lỗi gốc đầu tiên, sửa đúng file liên quan, rồi push lại.
-8. Không in secret ra log.
-9. Nếu thiếu dependency, thêm đúng dependency vào đúng module Gradle.
-10. Nếu người dùng yêu cầu release APK, kiểm tra GitHub Secrets đã có trước khi build release.
+1. Never commit secrets, tokens, `.jks`, `.keystore`, `keystore.properties`, or `local.properties`.
+2. Keep the project Kotlin-first and preserve the Android Studio structure.
+3. Do not change AGP, Kotlin, Gradle, or workflow versions unless the build log clearly requires it.
+4. When a build fails, read `android-build-log`, identify the first real root cause, make the smallest fix, and push again.
+5. Do not print secrets in logs.
+6. Only request release builds when GitHub secrets are already configured.
+7. The priority is always to produce a working APK first, then improve the app after that.
 
-## Môi trường build
+Build environment:
 
-GitHub Actions sẽ chuẩn bị:
+- JDK 21
+- Android SDK platforms 34, 35, 36, 37
+- GitHub Actions workflow name: `Android APK Builder`
 
-```text
-JDK 17
-Gradle 8.10.2 nếu repo chưa có gradlew
-Android SDK platforms 34, 35, 36
-Android build-tools 34.0.0, 35.0.0, 36.0.0
-```
+Default build commands:
 
-Build debug:
-
-```bash
-gradle --no-daemon assembleDebug --stacktrace
-```
-
-Build release:
-
-```bash
-gradle --no-daemon assembleRelease --stacktrace
-```
-
-Nếu repo có `./gradlew`, workflow sẽ ưu tiên dùng `./gradlew`.
-
-## Vòng làm việc
-
-1. Sửa code.
-2. Commit/push lên `main`.
-3. Đợi GitHub Actions build.
-4. Nếu pass, báo người dùng tải artifact APK.
-5. Nếu fail, tải `android-build-log`, đọc lỗi, sửa, push lại.
-
-Mục tiêu luôn là có APK chạy được trước, tối ưu sau.
+- Debug: `./gradlew --no-daemon assembleDebug --stacktrace`
+- Release: `./gradlew --no-daemon assembleRelease --stacktrace`
