@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.hkm.emptyactivity"
+    namespace = "com.hkm.profilecard"
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.hkm.emptyactivity"
+        applicationId = "com.hkm.profilecard"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
