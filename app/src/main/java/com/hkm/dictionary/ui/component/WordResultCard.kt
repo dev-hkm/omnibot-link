@@ -44,7 +44,7 @@ fun WordResultCard(
             phonetic = result.phonetic,
             pronunciations = result.pronunciations,
             onPlayAudio = { url ->
-                haptic.performHapticFeedback(HapticFeedbackType.LightImpact)
+                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                 playAudio(url)
             }
         )

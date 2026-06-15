@@ -43,7 +43,7 @@ fun DictionaryScreen(
                 actions = {
                     if (hasSearched) {
                         IconButton(onClick = {
-                            haptic.performHapticFeedback(HapticFeedbackType.LightImpact)
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                             viewModel.clearSearch()
                         }) {
                             Icon(Icons.Outlined.Close, contentDescription = "Xóa")
@@ -67,7 +67,7 @@ fun DictionaryScreen(
                 query = searchQuery,
                 onQueryChange = { viewModel.updateQuery(it) },
                 onSearch = {
-                    haptic.performHapticFeedback(HapticFeedbackType.LightImpact)
+                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                     viewModel.search()
                 },
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
@@ -96,7 +96,7 @@ fun DictionaryScreen(
                         ErrorContent(
                             message = state.message,
                             onRetry = {
-                                haptic.performHapticFeedback(HapticFeedbackType.LightImpact)
+                                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                                 viewModel.retry()
                             },
                             modifier = Modifier.align(Alignment.Center)
