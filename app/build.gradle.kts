@@ -1,16 +1,17 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
 }
 
-val localProps = java.util.Properties()
+val localProps = Properties()
 val localFile = rootProject.file("local.properties")
 if (localFile.exists()) {
     localFile.inputStream().use { localProps.load(it) }
 }
 val groqApiKey: String = System.getenv("GROQ_API_KEY")
-    ?: localProps.getProperty("groq.api.key")
-    ?: ""
+    ?: localProps.getProperty("groq.api.key", "")
 
 android {
     namespace = "com.hkm.dictionary"
