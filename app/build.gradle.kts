@@ -3,18 +3,29 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
+val localProps = java.util.Properties()
+val localFile = rootProject.file("local.properties")
+if (localFile.exists()) {
+    localFile.inputStream().use { localProps.load(it) }
+}
+val groqApiKey: String = System.getenv("GROQ_API_KEY")
+    ?: localProps.getProperty("groq.api.key")
+    ?: ""
+
 android {
-    namespace = "com.hkm.profilecard"
+    namespace = "com.hkm.dictionary"
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.hkm.profilecard"
-        minSdk = 24
+        applicationId = "com.hkm.dictionary"
+        minSdk = 26
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "GROQ_API_KEY", "\"${groqApiKey}\"")
     }
 
     buildTypes {
@@ -30,6 +41,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -49,6 +61,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.okhttp)
+    implementation(libs.gson)
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)

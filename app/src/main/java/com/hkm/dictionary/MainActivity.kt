@@ -1,27 +1,26 @@
-package com.hkm.profilecard
+package com.hkm.dictionary
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.hkm.profilecard.ui.screen.ProfileScreen
-import com.hkm.profilecard.ui.theme.ProfileCardTheme
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.hkm.dictionary.ui.screen.DictionaryScreen
+import com.hkm.dictionary.ui.theme.DictionaryTheme
+import com.hkm.dictionary.viewmodel.DictionaryViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            ProfileCardTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    ProfileScreen()
+            DictionaryTheme {
+                Surface(modifier = Modifier.fillMaxSize()) {
+                    val viewModel: DictionaryViewModel = viewModel()
+                    DictionaryScreen(viewModel = viewModel)
                 }
             }
         }
